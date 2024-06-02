@@ -20,13 +20,13 @@
       .w-28 {{ st_value }}
     .flex.gap-2
       .w-28 S目标分数:
-      .w-28 {{ targetScore.po_s_value}}
+      .w-28 {{ targetScore.po_s_value | 0}}
     .flex.gap-2
       .w-28 A+目标分数:
-      .w-28 {{ targetScore.po_ap_value}}
+      .w-28 {{ targetScore.po_ap_value | 0}}
     .flex.gap-2
       .w-28 A目标分数:
-      .w-28 {{ targetScore.po_a_value}}
+      .w-28 {{ targetScore.po_a_value | 0}}
 
   .bg-white.w-full.my-4(class="h-[1px]")
   .font-black.mb-3 评价反推决赛分数
@@ -35,7 +35,7 @@
     InputNumber.flex-1(min="0" v-model:value="points" @focus="autoChoose")
   .flex.gap-2.mb-4
     .w-28 决赛分数:
-    .w-28 {{ targetState }}
+    .w-28 {{ targetState | 0}}
 
 </template>
 <script setup lang="ts">
