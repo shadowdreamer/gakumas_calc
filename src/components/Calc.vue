@@ -1,5 +1,5 @@
 <template lang="pug">
-.py-4.px-4.text-lg
+.py-4.px-4
   .flex.flex-col.gap-2
     .flex.items-center.justify-center.gap-2
       .w-8.font-mono.text-pink-600 VO:
@@ -10,34 +10,34 @@
     .flex.items-center.justify-center.gap-2
       .w-8.font-mono.text-orange-300 VI:
       input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="13" v-model="data.vi" @focus="autoChoose")
-  .py-3
+  .py-2
     .mb-3.flex
       input.mr-1(type="checkbox" id="-bonus" name="-bonus" v-model="bonus") 
-      label.opacity-75.text-base(for="-bonus") 决赛第一奖励属性加成(各属性+30)
+      label.opacity-75.text-base(for="-bonus") 奖励属性加成(各属性+30)
     .flex.gap-2.text-base
-      .w-28 三围合计:
-      .w-28 {{ sum }}
-      .w-28 魔法数值:
-      .w-28 {{ st_value }}
-  .my-5.pt-3.text-lg.flex.flex-col.gap-2
+      div 三围合计:
+      .mr-5.font-mono {{ sum }}
+      div 魔法数值:
+      .font-mono {{ st_value }}
+  .my-3.text-2xl.flex.flex-col.gap-2.font-mono
     .flex.gap-2
-      .w-28 S目标分数:
+      .w-10.text-right S:
       .w-28 {{ targetScore.po_s_value | 0}}
     .flex.gap-2
-      .w-28 A+目标分数:
+      .w-10.text-right A+:
       .w-28 {{ targetScore.po_ap_value | 0}}
     .flex.gap-2
-      .w-28 A目标分数:
+      .w-10.text-right A:
       .w-28 {{ targetScore.po_a_value | 0}}
 
-  .bg-white.w-full.my-4(class="h-[1px]")
+  .bg-white.w-full.my-8(class="h-[1px]")
   .font-black.mb-3 评价反推决赛分数
   .flex.gap-2.mb-4
     .w-28 目标评价分:
     input.input-box.flex-1(type="number" min="0" v-model="points" @focus="autoChoose")
   .flex.gap-2.mb-4
     .w-28 决赛分数:
-    .w-28 {{ targetState | 0}}
+    .w-28.font-mono.text-xl {{ targetState | 0}}
 
 </template>
 <script setup lang="ts">
@@ -146,7 +146,7 @@ function autoChoose(ev: any) {
 </script>
 <style scoped lang="scss">
 .input-box{
-  @apply bg-black text-neutral-50 px-2 py-1 text-base rounded-md border border-transparent 
-  focus:border-blue-400 outline-none transition-all;
+  @apply bg-black text-neutral-50 px-2 py-1 text-lg rounded-md border border-transparent 
+  focus:border-blue-400 outline-none transition-all font-mono;
 }
 </style>
