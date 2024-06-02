@@ -22,13 +22,13 @@
   .my-3.text-2xl.flex.flex-col.gap-2.font-mono
     .flex.gap-2
       .w-10.text-right S:
-      .w-28 {{ targetScore.po_s_value | 0}}
+      .text-right(class="w-[4em]") {{ targetScore.po_s_value | 0}}
     .flex.gap-2
       .w-10.text-right A+:
-      .w-28 {{ targetScore.po_ap_value | 0}}
+      .text-right(class="w-[4em]") {{ targetScore.po_ap_value | 0}}
     .flex.gap-2
       .w-10.text-right A:
-      .w-28 {{ targetScore.po_a_value | 0}}
+      .text-right(class="w-[4em]") {{ targetScore.po_a_value | 0}}
 
   .bg-white.w-full.my-8(class="h-[1px]")
   .font-black.mb-3 评价反推决赛分数
