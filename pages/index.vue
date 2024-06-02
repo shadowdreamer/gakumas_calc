@@ -1,5 +1,5 @@
 <template lang="pug">
-.py-4.px-4
+.py-4.px-4.warp
   .flex.flex-col.gap-2.text-lg
     .flex.items-center.justify-center.gap-1
       .w-8.font-mono.text-pink-600 VO
@@ -45,6 +45,9 @@
 </template>
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from "vue";
+definePageMeta({
+  title:'学mas计算器'
+})
 const input_vo = ref(null)
 const input_da = ref(null)
 const input_vi = ref(null)
@@ -169,7 +172,8 @@ function autoChoose(ev: any) {
   ev.target.select()
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
+
 .input-box{
   @apply bg-black text-neutral-50 px-2 py-1 text-lg rounded-md border border-transparent 
   focus:border-blue-400 outline-none transition-all font-mono;
