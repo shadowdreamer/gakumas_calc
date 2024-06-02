@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ant-design-vue": "4.x",
     "vue": "^3.4.24"
   },
   "devDependencies": {

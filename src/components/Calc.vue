@@ -1,23 +1,25 @@
 <template lang="pug">
 .py-4.px-4.text-lg
   .grid.grid-cols-3.mb-5.gap-4
-    .flex.items-center.justify-center.gap-1
+    .flex.items-center.justify-center.gap-2
       .text-pink-600 VO:
-      InputNumber.flex-1(min="0" max="1500" :tabindex="11" v-model:value="data.vo" autofocus @focus="autoChoose")
-    .flex.items-center.justify-center.gap-1
+      input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="11" v-model="data.vo" autofocus @focus="autoChoose")
+    .flex.items-center.justify-center.gap-2
       .text-blue-600 DA:
-      InputNumber.flex-1(min="0" max="1500" :tabindex="12" v-model:value="data.da" @focus="autoChoose")
-    .flex.items-center.justify-center.gap-1
+      input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="12" v-model="data.da" @focus="autoChoose")
+    .flex.items-center.justify-center.gap-2
       .text-orange-300 VI:
-      InputNumber.flex-1(min="0" max="1500" :tabindex="13" v-model:value="data.vi" @focus="autoChoose")
+      input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="13" v-model="data.vi" @focus="autoChoose")
   .py-3
-    Checkbox(v-model:checked="bonus") 决赛第一奖励属性加成(各属性+30)
-  .my-5.pt-3.text-lg.flex.flex-col.gap-2
+    .mb-3
+      input.mr-1(type="checkbox" id="-bonus" name="-bonus" v-model="bonus") 
+      label(for="-bonus") 决赛第一奖励属性加成(各属性+30)
     .flex.gap-2.text-base
       .w-28 三围合计:
       .w-28 {{ sum }}
       .w-28 魔法数值:
       .w-28 {{ st_value }}
+  .my-5.pt-3.text-lg.flex.flex-col.gap-2
     .flex.gap-2
       .w-28 S目标分数:
       .w-28 {{ targetScore.po_s_value | 0}}
@@ -32,21 +34,27 @@
   .font-black.mb-3 评价反推决赛分数
   .flex.gap-2.mb-4
     .w-28 目标评价分:
-    InputNumber.flex-1(min="0" v-model:value="points" @focus="autoChoose")
+    input.input-box.flex-1(type="number" min="0" v-model="points" @focus="autoChoose")
   .flex.gap-2.mb-4
     .w-28 决赛分数:
     .w-28 {{ targetState | 0}}
 
 </template>
 <script setup lang="ts">
-import { computed, reactive, ref } from "vue";
-import { InputNumber, Checkbox } from 'ant-design-vue';
-const data = reactive({
+import { computed, reactive, ref, watch } from "vue";
+const data = reactive<any>({
   vo: 500,
   da: 500,
   vi: 500
 })
 const bonus = ref(true)
+watch(data,()=>{
+  for(let key in data){
+    if(data[key]>1500){
+      setTimeout(()=>data[key]=1500,300)
+    }
+  }
+})
 const sum = computed(() => {
   let { vo, da, vi } = data;
   if (bonus.value) {
@@ -136,4 +144,9 @@ function autoChoose(ev: any) {
   ev.target.select()
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.input-box{
+  @apply bg-black text-neutral-50 px-2 py-1 text-base rounded-md border border-transparent 
+  focus:border-blue-400 outline-none transition-all;
+}
+</style>
