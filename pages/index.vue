@@ -1,5 +1,5 @@
 <template lang="pug">
-.py-4.px-4.warp
+.py-4.px-4
   .flex.flex-col.gap-2.text-lg
     .flex.items-center.justify-center.gap-1
       .w-8.font-mono.text-pink-600 VO
@@ -38,10 +38,11 @@
   .flex.gap-2.mb-2.items-center
     .w-28 目标评价分:
     input.input-box.flex-1(type="number" min="0" v-model="points" @focus="autoChoose")
-  .flex.gap-2.mb-4
+  .flex.gap-2.mb-10
     .w-28 决赛分数:
     .w-28.font-mono.text-xl {{ targetState | 0}}
 
+  NuxtLink(to="/about") 参考
 </template>
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from "vue";
