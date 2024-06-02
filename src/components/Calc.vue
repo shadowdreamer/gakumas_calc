@@ -1,38 +1,41 @@
 <template lang="pug">
 .py-4.px-4
-  .flex.flex-col.gap-2
-    .flex.items-center.justify-center.gap-2
-      .w-8.font-mono.text-pink-600 VO:
-      input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="11" v-model="data.vo" autofocus @focus="autoChoose")
-    .flex.items-center.justify-center.gap-2
-      .w-8.font-mono.text-blue-600 DA:
-      input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="12" v-model="data.da" @focus="autoChoose")
-    .flex.items-center.justify-center.gap-2
-      .w-8.font-mono.text-orange-300 VI:
-      input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="13" v-model="data.vi" @focus="autoChoose")
-  .py-2
+  .flex.flex-col.gap-2.text-lg
+    .flex.items-center.justify-center.gap-1
+      .w-8.font-mono.text-pink-600 VO
+      input.input-box.flex-1(ref="input_vo" type="number" :tabindex="11" v-model="data.vo" autofocus @focus="autoChoose"
+       @keydown="handleKeydown($event,input_da,input_vi)")
+    .flex.items-center.justify-center.gap-1
+      .w-8.font-mono.text-blue-600 DA
+      input.input-box.flex-1(ref="input_da" type="number" :tabindex="12" v-model="data.da" @focus="autoChoose"
+      @keydown="handleKeydown($event,input_vi,input_vo)")
+    .flex.items-center.justify-center.gap-1
+      .w-8.font-mono.text-orange-300 VI
+      input.input-box.flex-1(ref="input_vi" type="number" :tabindex="13" v-model="data.vi" @focus="autoChoose"
+      @keydown="handleKeydown($event,input_vo,input_da)")
+  .py-2.pl-10.opacity-75
     .mb-3.flex
       input.mr-1(type="checkbox" id="-bonus" name="-bonus" v-model="bonus") 
-      label.opacity-75.text-base(for="-bonus") 奖励属性加成(各属性+30)
+      label.text-base(for="-bonus") 奖励属性加成(各属性+30)
     .flex.gap-2.text-base
       div 三围合计:
       .mr-5.font-mono {{ sum }}
       div 魔法数值:
       .font-mono {{ st_value }}
-  .my-3.text-2xl.flex.flex-col.gap-2.font-mono
+  .my-2.text-2xl.flex.flex-col.gap-2.font-mono
     .flex.gap-2
-      .w-10.text-right S:
+      .w-8.text-right S
       .text-right(class="w-[4em]") {{ targetScore.po_s_value | 0}}
     .flex.gap-2
-      .w-10.text-right A+:
+      .w-8.text-right A+
       .text-right(class="w-[4em]") {{ targetScore.po_ap_value | 0}}
     .flex.gap-2
-      .w-10.text-right A:
+      .w-8.text-right A
       .text-right(class="w-[4em]") {{ targetScore.po_a_value | 0}}
 
   .bg-white.w-full.my-8(class="h-[1px]")
-  .font-black.mb-3 评价反推决赛分数
-  .flex.gap-2.mb-4
+  .font-black.mb-4 评价分反推决赛分数
+  .flex.gap-2.mb-2.items-center
     .w-28 目标评价分:
     input.input-box.flex-1(type="number" min="0" v-model="points" @focus="autoChoose")
   .flex.gap-2.mb-4
@@ -42,6 +45,9 @@
 </template>
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from "vue";
+const input_vo = ref(null)
+const input_da = ref(null)
+const input_vi = ref(null)
 const data = reactive<any>({
   vo: 500,
   da: 500,
@@ -53,10 +59,16 @@ watch(data,()=>{
     if(data[key]>1500){
       setTimeout(()=>data[key]=1500,300)
     }
+    if(data[key]<0){
+      setTimeout(()=>data[key]=0,300)
+    }
   }
 })
 const sum = computed(() => {
   let { vo, da, vi } = data;
+  vo = vo || 0;
+  da = da || 0;
+  vi = vi || 0;
   if (bonus.value) {
     vo = Math.min(1500, vo + 30)
     da = Math.min(1500, da + 30)
@@ -139,7 +151,20 @@ const targetState = computed(() => {
 
 })
 
-
+function handleKeydown(ev:any,next:any,prev:any){
+  if(ev.key === "ArrowDown"){
+    next?.focus();
+    ev.preventDefault();
+  }
+  if(ev.key === "ArrowUp"){
+    prev?.focus();
+    ev.preventDefault();
+  }
+  if(ev.key === "Enter"){
+    next?.focus();
+    ev.preventDefault();
+  }
+}
 function autoChoose(ev: any) {
   ev.target.select()
 }
