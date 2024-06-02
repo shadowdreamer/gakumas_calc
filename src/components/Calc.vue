@@ -1,19 +1,19 @@
 <template lang="pug">
 .py-4.px-4.text-lg
-  .grid.grid-cols-3.mb-5.gap-4
+  .flex.flex-col.gap-2
     .flex.items-center.justify-center.gap-2
-      .text-pink-600 VO:
+      .w-8.font-mono.text-pink-600 VO:
       input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="11" v-model="data.vo" autofocus @focus="autoChoose")
     .flex.items-center.justify-center.gap-2
-      .text-blue-600 DA:
+      .w-8.font-mono.text-blue-600 DA:
       input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="12" v-model="data.da" @focus="autoChoose")
     .flex.items-center.justify-center.gap-2
-      .text-orange-300 VI:
+      .w-8.font-mono.text-orange-300 VI:
       input.input-box.flex-1(type="number" min="0" max="1500" :tabindex="13" v-model="data.vi" @focus="autoChoose")
   .py-3
-    .mb-3
+    .mb-3.flex
       input.mr-1(type="checkbox" id="-bonus" name="-bonus" v-model="bonus") 
-      label(for="-bonus") 决赛第一奖励属性加成(各属性+30)
+      label.opacity-75.text-base(for="-bonus") 决赛第一奖励属性加成(各属性+30)
     .flex.gap-2.text-base
       .w-28 三围合计:
       .w-28 {{ sum }}
