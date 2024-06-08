@@ -3,7 +3,7 @@
   .flex.flex-col.gap-2.text-lg
     .flex.items-center.justify-center.gap-1
       .w-8.font-mono.text-pink-600 VO
-      input.input-box.flex-1(ref="input_vo" type="number" :tabindex="11" v-model="data.vo" autofocus @focus="autoChoose"
+      input.input-box.flex-1(ref="input_vo" type="number" :tabindex="11" v-model="data.vo" @focus="autoChoose"
        @keydown="handleKeydown($event,input_da,input_vi)")
     .flex.items-center.justify-center.gap-1
       .w-8.font-mono.text-blue-600 DA
@@ -45,19 +45,22 @@
   NuxtLink(to="/about") 参考
 </template>
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from "vue";
+import { computed, reactive, ref, watch,onMounted } from "vue";
 definePageMeta({
   title:'学mas计算器'
 })
-const input_vo = ref(null)
-const input_da = ref(null)
-const input_vi = ref(null)
+const input_vo = ref<any>(null)
+const input_da = ref<any>(null)
+const input_vi = ref<any>(null)
 const data = reactive<any>({
   vo: 500,
   da: 500,
   vi: 500
 })
-const bonus = ref(true)
+const bonus = ref(true);
+onMounted(() => {
+  input_vo.value?.focus();
+})
 watch(data,()=>{
   for(let key in data){
     if(data[key]>1500){
